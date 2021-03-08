@@ -5,6 +5,7 @@
 import { injectable, inject } from 'tsyringe';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import User from '../infra/typeorm/entities/User';
+import IHashProvider from '../providers/HashProvider/models/IHashProvider';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 @injectable()
@@ -12,6 +13,9 @@ class CreateUserService {
     constructor(
         @inject('UsersRepository')
         private usersRepositoru: IUsersRepository,
+
+        @inject('HashProvider')
+        private hashProvider: IHashProvider,
     ) {}
 
     public async execute({
@@ -28,10 +32,13 @@ class CreateUserService {
             throw new Error('this username is already exists.');
         }
 
+        // Generate password hash
+        const passwordHashed = await this.hashProvider.generate(password);
+
         // Creating a new user
         const createdUser = await this.usersRepositoru.create({
             username,
-            password,
+            password: passwordHashed,
             permission_level,
         });
 
