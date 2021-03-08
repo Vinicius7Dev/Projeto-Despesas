@@ -2,7 +2,7 @@
  * Interface: Users repository
  */
 
-import User from 'modules/infra/entities/User';
+import User from 'modules/infra/typeorm/entities/User';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 
 interface IUsersRepository {
