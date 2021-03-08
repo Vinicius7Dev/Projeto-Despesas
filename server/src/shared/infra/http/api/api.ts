@@ -2,8 +2,10 @@
  * Api
  */
 
+import 'reflect-metadata';
 import express from 'express';
 import mainRoutes from '../routes';
+import '@shared/containers/index';
 
 // Creating api object
 const api = express();
