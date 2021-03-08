@@ -3,11 +3,10 @@
  */
 
 import { Router } from 'express';
+import usersRouter from '@modules/users/infra/http/routes/users.routes';
 
 const mainRouter = Router();
 
-mainRouter.get('/', (request, response) => {
-    return response.json({ message: 'Request complete!' });
-});
+mainRouter.use('/users', usersRouter);
 
 export default mainRouter;
