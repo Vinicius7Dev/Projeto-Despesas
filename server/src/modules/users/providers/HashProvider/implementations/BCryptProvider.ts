@@ -13,9 +13,9 @@ class BCryptProvider implements IHashProvider {
         return hashed;
     }
 
-    public async compare(hashed: string, noHashed: string): Promise<boolean> {
+    public async compare(noHashed: string, hashed: string): Promise<boolean> {
         // Compare hash
-        const isValid = await compare(hashed, noHashed);
+        const isValid = await compare(noHashed, hashed);
 
         return isValid;
     }
