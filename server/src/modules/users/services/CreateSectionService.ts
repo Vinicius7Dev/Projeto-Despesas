@@ -4,7 +4,7 @@
 
 import { injectable, inject } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
-import authConfig from '@config/authConfig.ts';
+import authConfig from '@config/authConfig';
 import ICreateSectionDTO from '../dtos/ICreateSectionDTO';
 import User from '../infra/typeorm/entities/User';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
