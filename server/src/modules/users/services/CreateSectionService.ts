@@ -4,6 +4,7 @@
 
 import { injectable, inject } from 'tsyringe';
 import { sign } from 'jsonwebtoken';
+import AppError from '@shared/errors/AppError';
 import authConfig from '@config/authConfig';
 import ICreateSectionDTO from '../dtos/ICreateSectionDTO';
 import User from '../infra/typeorm/entities/User';
@@ -33,7 +34,7 @@ class CreateSectionService {
         const findedUser = await this.usersRepository.findByUsername(username);
 
         if (!findedUser) {
-            throw new Error('this user does not exists.');
+            throw new AppError('user not found.', 404);
         }
 
         // Compare password with hash
@@ -43,7 +44,7 @@ class CreateSectionService {
         );
 
         if (!isValid) {
-            throw new Error('password incorrect.');
+            throw new AppError('password incorrect.');
         }
 
         // Create section token

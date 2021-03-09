@@ -3,6 +3,7 @@
  */
 
 import { injectable, inject } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import ICreateUserDTO from '../dtos/ICreateUserDTO';
 import User from '../infra/typeorm/entities/User';
 import IHashProvider from '../providers/HashProvider/models/IHashProvider';
@@ -29,7 +30,7 @@ class CreateUserService {
         );
 
         if (findedUserWithSameUsername) {
-            throw new Error('this username is already exists.');
+            throw new AppError('this username is already exists.');
         }
 
         // Generate password hash

@@ -3,6 +3,7 @@
  */
 
 import { injectable, inject } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import IUsersRepository from '../repositories/IUsersRepository';
 
 @injectable()
@@ -23,12 +24,12 @@ class DeleteUserService {
 
         // Check if user exists
         if (!authenticatedUser) {
-            throw new Error('no user finded.');
+            throw new AppError('no user authenticated.');
         }
 
         // Check if user have permission
         if (authenticatedUser.permission_level !== 'ADM') {
-            throw new Error('do you no have permission.');
+            throw new AppError('do you no have permission.');
         }
 
         await this.usersRepository.delete(delete_user_id);
