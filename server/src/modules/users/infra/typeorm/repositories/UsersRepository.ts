@@ -14,6 +14,13 @@ class UsersRepository implements IUsersRepository {
         this.repository = getRepository(User);
     }
 
+    // Find by id
+    public async findById(id: string): Promise<User | undefined> {
+        const findedUser = await this.repository.findOne({ where: { id } });
+
+        return findedUser;
+    }
+
     // Find user by username
     public async findByUsername(username: string): Promise<User | undefined> {
         const findedUser = await this.repository.findOne({
@@ -38,6 +45,17 @@ class UsersRepository implements IUsersRepository {
         await this.repository.save(createdUser);
 
         return createdUser;
+    }
+
+    // Remove user
+    public async delete(id: string): Promise<void> {
+        // Check if this user exists
+        const findedUser = await this.repository.findOne({ where: { id } });
+
+        if (findedUser) {
+            // Delete user
+            await this.repository.remove(findedUser);
+        }
     }
 }
 

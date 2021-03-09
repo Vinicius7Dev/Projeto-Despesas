@@ -12,7 +12,7 @@ import IUsersRepository from '../repositories/IUsersRepository';
 class CreateUserService {
     constructor(
         @inject('UsersRepository')
-        private usersRepositoru: IUsersRepository,
+        private usersRepository: IUsersRepository,
 
         @inject('HashProvider')
         private hashProvider: IHashProvider,
@@ -24,7 +24,7 @@ class CreateUserService {
         permission_level,
     }: ICreateUserDTO): Promise<User> {
         // Check if username is alread register in database
-        const findedUserWithSameUsername = await this.usersRepositoru.findByUsername(
+        const findedUserWithSameUsername = await this.usersRepository.findByUsername(
             username,
         );
 
@@ -36,7 +36,7 @@ class CreateUserService {
         const passwordHashed = await this.hashProvider.generate(password);
 
         // Creating a new user
-        const createdUser = await this.usersRepositoru.create({
+        const createdUser = await this.usersRepository.create({
             username,
             password: passwordHashed,
             permission_level,
