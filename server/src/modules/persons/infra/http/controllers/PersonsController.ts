@@ -16,12 +16,16 @@ class PersonsController {
 
         // Getting data from request body
         const { name, transaction_forms } = req.body;
+        const { permission_level } = req.user;
 
         // Create person
-        const personCreated = await createPersonService.execute({
-            name,
-            transaction_forms,
-        });
+        const personCreated = await createPersonService.execute(
+            {
+                name,
+                transaction_forms,
+            },
+            permission_level,
+        );
 
         return res.status(201).json(personCreated);
     }

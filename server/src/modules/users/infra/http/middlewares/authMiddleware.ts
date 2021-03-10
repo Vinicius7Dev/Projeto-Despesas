@@ -38,6 +38,7 @@ const authMiddleware = (
 
         req.user = {
             id: user_id,
+            permission_level: undefined,
         };
 
         return next();
