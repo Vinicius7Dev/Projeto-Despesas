@@ -9,7 +9,7 @@ export default class PersonsTableEnableTrueDefault1615378027900
             new TableColumn({
                 name: 'enabled',
                 type: 'boolean',
-                default: 'false',
+                default: 'true',
             }),
         );
     }

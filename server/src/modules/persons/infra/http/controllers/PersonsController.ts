@@ -2,6 +2,8 @@
  * Persons controller
  */
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+import CreatePersonService from '@modules/persons/services/CreatePersonService';
 
 class PersonsController {
     public async index(req: Request, res: Response): Promise<Response> {
@@ -9,7 +11,19 @@ class PersonsController {
     }
 
     public async create(req: Request, res: Response): Promise<Response> {
-        return res.status(201).json({ message: 'create person' });
+        // Create instance of service
+        const createPersonService = container.resolve(CreatePersonService);
+
+        // Getting data from request body
+        const { name, transaction_forms } = req.body;
+
+        // Create person
+        const personCreated = await createPersonService.execute({
+            name,
+            transaction_forms,
+        });
+
+        return res.status(201).json(personCreated);
     }
 
     public async update(req: Request, res: Response): Promise<Response> {

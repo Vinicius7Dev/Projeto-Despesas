@@ -9,6 +9,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
 } from 'typeorm';
+import { uuid } from 'uuidv4';
 
 @Entity('transaction_forms')
 class TransactionForm {
@@ -29,6 +30,12 @@ class TransactionForm {
 
     @UpdateDateColumn()
     public updated_at: Date;
+
+    constructor() {
+        if (!this.id) {
+            this.id = uuid();
+        }
+    }
 }
 
 export default TransactionForm;

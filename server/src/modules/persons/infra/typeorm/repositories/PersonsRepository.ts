@@ -14,6 +14,20 @@ class PersonsRepository implements IPersonsRepository {
         this.repository = getRepository(Person);
     }
 
+    // Find person by id
+    public async findById(id: string): Promise<Person | undefined> {
+        const findedPerson = await this.repository.findOne({ where: { id } });
+
+        return findedPerson;
+    }
+
+    // Find person by name
+    public async findByName(name: string): Promise<Person | undefined> {
+        const findedPerson = await this.repository.findOne({ where: { name } });
+
+        return findedPerson;
+    }
+
     // Getting all persons
     public async index(): Promise<Person[]> {
         const persons = await this.repository.find();
@@ -22,7 +36,9 @@ class PersonsRepository implements IPersonsRepository {
     }
 
     // Creating a new person
-    public async create({ name }: ICreatePersonDTO): Promise<Person> {
+    public async create({
+        name,
+    }: Omit<ICreatePersonDTO, 'transaction_forms'>): Promise<Person> {
         const createdPerson = await this.repository.create({
             name,
         });
