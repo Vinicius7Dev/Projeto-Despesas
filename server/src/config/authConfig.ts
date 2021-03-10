@@ -4,8 +4,8 @@
 
 const config = {
     token: {
-        secret: 'default',
-        expiresIn: '1d',
+        secret: process.env.APP_JWT_TOKEN_SECRET || 'default',
+        expiresIn: process.env.APP_JWT_TOKEN_EXPIRESIN || '1d',
     },
 };
 

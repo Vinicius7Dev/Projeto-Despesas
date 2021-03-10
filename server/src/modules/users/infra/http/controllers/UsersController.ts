@@ -13,13 +13,19 @@ class UsersController {
         const createUserService = container.resolve(CreateUserService);
 
         // Getting user data from request body
-        const { username, password, permission_level } = req.body;
+        const {
+            username,
+            password,
+            permission_level,
+            permission_code,
+        } = req.body;
 
         // Create a new user
         const createdUser = await createUserService.execute({
             username,
             password,
             permission_level,
+            permission_code,
         });
 
         return res.json(createdUser).status(201);

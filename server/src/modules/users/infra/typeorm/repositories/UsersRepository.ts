@@ -35,7 +35,7 @@ class UsersRepository implements IUsersRepository {
         username,
         password,
         permission_level,
-    }: ICreateUserDTO): Promise<User> {
+    }: Omit<ICreateUserDTO, 'permission_code'>): Promise<User> {
         const createdUser = await this.repository.create({
             username,
             password,
