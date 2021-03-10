@@ -28,7 +28,7 @@ class UsersController {
             permission_code,
         });
 
-        return res.json(createdUser).status(201);
+        return res.status(201).json(createdUser);
     }
 
     public async delete(req: Request, res: Response): Promise<Response> {
@@ -42,7 +42,7 @@ class UsersController {
         // Deleting user
         await deleteUserService.execute(delete_user_id, authenticated_user_id);
 
-        return res.send().status(204);
+        return res.status(204).send();
     }
 }
 

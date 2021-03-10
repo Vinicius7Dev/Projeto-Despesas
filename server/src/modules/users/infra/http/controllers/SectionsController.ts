@@ -20,7 +20,7 @@ class SectionsController {
             password,
         });
 
-        return res.json(userToken).status(201);
+        return res.status(201).json(userToken);
     }
 }
 
