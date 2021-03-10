@@ -3,8 +3,7 @@
  */
 
 interface ICreatePersonDTO {
-    title: string;
-    transactionForms: string[];
+    name: string;
 }
 
 export default ICreatePersonDTO;

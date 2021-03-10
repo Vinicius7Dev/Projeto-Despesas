@@ -3,13 +3,12 @@
  */
 
 import ICreatePersonDTO from '../dtos/ICreatePersonDTO';
-import IUpdatePersonDTO from '../dtos/IUpdatePersonDTO';
 import Person from '../infra/typeorm/entities/Person';
 
 interface IPersonsRepository {
-    index(id?: string): Promise<Person[]>;
+    index(): Promise<Person[]>;
     create(data: ICreatePersonDTO): Promise<Person>;
-    update(data: IUpdatePersonDTO): Promise<Person>;
+    update(person: Person): Promise<Person>;
     delete(id: string): Promise<void>;
 }
 
