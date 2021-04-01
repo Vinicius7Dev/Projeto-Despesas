@@ -1,9 +1,8 @@
 /**
  * Create person service
  */
-import IUsersRepository from '@modules/users/repositories/IUsersRepository';
-import AppError from '@shared/errors/AppError';
 import { injectable, inject } from 'tsyringe';
+import AppError from '@shared/errors/AppError';
 import ICreatePersonDTO from '../dtos/ICreatePersonDTO';
 import Person from '../infra/typeorm/entities/Person';
 import IPersonsRepository from '../repositories/IPersonsRepository';
@@ -12,9 +11,6 @@ import ITransactionFormsRepository from '../repositories/ITransactionFormsReposi
 @injectable()
 class CreatePersonService {
     constructor(
-        @inject('UsersRepository')
-        private usersRepository: IUsersRepository,
-
         @inject('PersonsRepository')
         private personsRepository: IPersonsRepository,
 
@@ -22,18 +18,10 @@ class CreatePersonService {
         private transactionFormsRepository: ITransactionFormsRepository,
     ) {}
 
-    public async execute(
-        { name, transaction_forms }: ICreatePersonDTO,
-        permission_level = 'null',
-    ): Promise<Person> {
-        // Check if user have permission to create a new person
-        if (permission_level !== 'EDITOR' && permission_level !== 'ADM') {
-            throw new AppError(
-                'you not have permission to complete this action.',
-                403,
-            );
-        }
-
+    public async execute({
+        name,
+        transaction_forms,
+    }: ICreatePersonDTO): Promise<Person> {
         // Check if exists person with same name
         const personWithSameName = await this.personsRepository.findByName(
             name,

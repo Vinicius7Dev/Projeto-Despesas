@@ -1,8 +1,10 @@
 # Creating the Application Database
 
-## PS: You need to have Docker installed!
+**Docker Option:**
+    - docker run --name despesas_db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d -t postgres
+    - Create a data base named "despesas_db"
 
-**At the terminal, run:**
-    - docker run --name despesas-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d -t postgres
-
-**PS: Create a data base named "despesas-db"**
+**With PostgresSGBD:**
+    - Create a data base named "despesas_db"
+    - Password: postgres
+    - Run on port: 5432
